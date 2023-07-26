@@ -6,14 +6,15 @@ on:
       - dev
 env:
   MONGODB_DB_NAME: gha-demo
+  VARIABLE: ${{ vars.VAR || 'default-value' }}
 jobs:
   test:
+    environment: testing
     env:
       MONGODB_CLUSTER_ADDRESS: cluster0.ajxtvvn.mongodb.net
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
-    environment: testing
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -29,9 +30,12 @@ jobs:
         run: npm start & npx wait-on http://127.0.0.1:${{ env.PORT }}
       - name: Run tests
         run: npm test
-      - name: Output information
+      - name: Output mongodb username
         run: |
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+      - name: Output variable
+        run: |
+          echo "VARIABLE: ${{ env.VARIABLE }}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
