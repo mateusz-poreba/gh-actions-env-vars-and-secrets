@@ -5,6 +5,7 @@ env:
   MY_ENV_SECRET: ${{ secrets.MY_SECRET }}
 jobs:
   do-the-job:
+    environment: testing
     runs-on: ubuntu-latest
     steps:
       - name: output variable
@@ -14,4 +15,3 @@ jobs:
             echo 'secret has correct value'
           fi
 
-          
