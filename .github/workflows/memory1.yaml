@@ -13,3 +13,5 @@ jobs:
           if [ "${{env.MY_ENV_SECRET}}" = "abc" ]; then
             echo 'secret has correct value'
           fi
+
+          
