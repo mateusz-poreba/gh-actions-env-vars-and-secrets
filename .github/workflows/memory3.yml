@@ -1,0 +1,16 @@
+name: Memory 3
+on: workflow_dispatch
+env:
+  SOME_VAR: ${{ vars.MY_VAR || 'my-default-var' }}
+  SOME_SEC: ${{ secrets.MY_SECRET }}
+jobs:
+  do-the-job:
+    runs-on: ubuntu-latest
+    # environment: testing
+    steps:
+      - name: Output variable and secret
+        run: |
+          echo '${{ env.SOME_VAR }}'
+          if [ "${{ env.SOME_SEC}}" = "abc" ]; then
+            echo 'secret has proper value'
+          fi
